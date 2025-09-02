@@ -1,11 +1,22 @@
-<script setup></script>
+<script setup>
+import { RouterLink, RouterView } from "vue-router";
+import NavBar from "./components/NavBar.vue";
+import { userStore } from "./stores/user";
+
+const user = userStore();
+
+if (user.isLogin) {
+  user.fetchUser();
+}
+</script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+  <header>
+    <NavBar :isLogin="user.isLogin" />
+    <!-- <NavBar :isLogin="true"/> -->
+  </header>
+
+  <RouterView> </RouterView>
 </template>
 
 <style scoped></style>
