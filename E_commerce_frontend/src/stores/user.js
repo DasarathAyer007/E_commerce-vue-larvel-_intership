@@ -28,7 +28,7 @@ export const userStore = defineStore('storeId', {
             }
 
         },
-        async  login(loginData) {
+        async login(loginData) {
             try {
                 const response = await axiosClient.post('api/login', loginData)
 
@@ -52,7 +52,9 @@ export const userStore = defineStore('storeId', {
                     this.isLogin = false
                     this.user=null
                     this.token=null
-                    localStorage.removeItem("token");
+                    console.log("Before remove:", localStorage.getItem("token"))
+                    localStorage.removeItem("token")
+                    console.log("After remove:", localStorage.getItem("token"))
                     router.push({ name: 'login' })
                 })
                 .catch(error=>{

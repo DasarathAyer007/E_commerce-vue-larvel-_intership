@@ -1,4 +1,5 @@
 <template>
+  <GuestLayout>
   <div class="min-h-screen flex items-center justify-center bg-gray-100">
     <div class="w-full max-w-md bg-gray-800 rounded-lg shadow-lg p-8">
       <h2 class="text-3xl font-bold text-orange-500 text-center mb-6">Sign Up</h2>
@@ -71,9 +72,11 @@
       </p>
     </div>
   </div>
+  </GuestLayout>
 </template>
 
 <script setup>
+import GuestLayout from "@/layouts/GuestLayout.vue";
 import axiosClient from '@/axios';
 import { reactive, ref } from 'vue';
 
