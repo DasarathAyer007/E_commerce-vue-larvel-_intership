@@ -49,7 +49,7 @@
         <!-- Table Body -->
         <tbody class="divide-y divide-gray-200">
           <tr
-            v-for="product in products"
+            v-for="product in products.products"
             :key="product.id"
             class="hover:bg-gray-50 transition"
           >
@@ -79,25 +79,23 @@
           </tr>
         </tbody>
       </table>
+      
     </div>
+    <PaginationNavigation/>
   </div>
 </template>
 
 <script setup>
 import axiosClient from '@/axios';
+import { useProductStore } from '@/stores/product';
 import { onMounted, ref } from 'vue';
+import PaginationNavigation from '@/components/PaginationNavigation.vue';
 
-const products=ref([])
+
+const products=useProductStore()
 
 onMounted(()=>{
-    axiosClient.get('api/product').then((resp)=>{
-        console.log(resp)
-        products.value=resp.data.data
-
-
-    }).catch((error)=>{
-        console.log(error)
-    })
+    products.fetchProduct()
 })
 
 </script>

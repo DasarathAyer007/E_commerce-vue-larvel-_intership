@@ -22,7 +22,7 @@ class ProductResource extends JsonResource
             'quantity'=>$this->quantity,
             'price'=>$this->price,
             'category'=>$this->category->name,
-            'user_id'=>$this->user_id
+            'user'=>$this->user->name
         ];
     }
 }

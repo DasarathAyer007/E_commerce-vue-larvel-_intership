@@ -13,6 +13,10 @@ import ProductList from '@/views/admin/product/ProductList.vue'
 import Category from '@/views/admin/category/Category.vue'
 import CategoryList from '@/views/admin/category/CategoryList.vue'
 import adminRouter from './adminRoutes'
+import ProductView from '@/views/ProductView.vue'
+import CheckoutView from '@/views/CheckoutView.vue'
+import OrderView from '@/views/OrderView.vue'
+import ProductFilter from '@/views/ProductFilter.vue'
 
 const routes =[
     {
@@ -24,6 +28,26 @@ const routes =[
           path: '/',
           name: 'home',
           component: HomeView,
+        },
+        {
+          path:'/products',
+          name:'productFilter',
+          component:ProductFilter
+        },
+        {
+          path:'/product/:id',
+          name: 'productInfo',
+          component:ProductView
+        },{
+          path:'/checkout/',
+          name:"checkout",
+          component:CheckoutView
+
+        },
+        {
+          path:'/orders',
+          name:'order',
+          component:OrderView
         }
 
       ]

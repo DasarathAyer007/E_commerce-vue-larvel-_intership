@@ -48,35 +48,16 @@
 
 <script setup>
 import axiosClient from "@/axios";
+import { useProductStore } from "@/stores/product";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
+const productStore= useProductStore()
 const route = useRoute();
 const productId = ref(null);
-const productData = reactive({
-  id: 0,
-  name: "",
-  description: "",
-  image: "",
-  quantity: 0,
-  price: 0,
-});
+const productData = ref([])
 
-onMounted(() => {
+onMounted(async () => {
   productId.value = route.params.id;
-  axiosClient
-    .get(`api/product/${productId.value}`)
-    .then((resp) => {
-      resp = resp.data.data;
-      console.log(resp);
-      productData.id = resp.id;
-      productData.name = resp.name;
-      productData.description = resp.description;
-      productData.image = resp.image;
-      productData.quantity = resp.quantity;
-      productData.price = resp.price;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  productData.value=await productStore.fetchProductById(productId.value);
 });
 </script>

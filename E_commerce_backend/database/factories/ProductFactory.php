@@ -19,11 +19,13 @@ class ProductFactory extends Factory
         return [
             'name'=>$this->faker->word(),
             'description'=>$this->faker->sentence(),
-            'image_path'=>$this->faker->word(20),
+            // 'image_path'=>$this->faker->word(10),
+            'image_path'=>'products/product.jpg',
+
             'quantity'=>$this->faker->randomNumber(2),
             'price'=>$this->faker->randomNumber(3),
-            'category_id'=>$this->faker->numberBetwee(1,3),
-            'user_id'=>$this->faker->numberBetwee(1,3)
+            'category_id'=>$this->faker->numberBetween(1,3),
+            'user_id'=>$this->faker->numberBetween(1,2)
         ];
     }
 }

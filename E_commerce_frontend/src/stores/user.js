@@ -22,7 +22,7 @@ export const userStore = defineStore('storeId', {
                 console.log("here")
                 console.log(userData.data)
                 this.user = userData.data
-                this.isLogin = true
+                // this.isLogin = true
             } catch (error) {
                 console.log(error)
             }
@@ -49,7 +49,7 @@ export const userStore = defineStore('storeId', {
         logout() {
             axiosClient.get('api/logout')
                 .then((response) => {
-                    this.isLogin = false
+                    // this.isLogin = false
                     this.user=null
                     this.token=null
                     console.log("Before remove:", localStorage.getItem("token"))

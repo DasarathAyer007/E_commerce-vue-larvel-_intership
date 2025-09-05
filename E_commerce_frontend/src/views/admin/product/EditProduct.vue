@@ -102,48 +102,30 @@ import { useRoute } from "vue-router";
 import router from "@/router";
 const route = useRoute();
 const productId = ref(null);
+import { useProductStore } from "@/stores/product";
 
-const productData = reactive({
-  id: 0,
-  name: "",
-  description: "",
-  quantity: "",
-  price: "",
-  category: "",
-  user_id: "",
-  image: null,
-});
+const productStore=useProductStore()
 
-onMounted(() => {
+const productData = ref([]);
+const Categories = ref([]);
+
+onMounted(async () => {
   productId.value = route.params.id;
-
-  axiosClient
-    .get(`api/product/${productId.value}`)
-    .then((resp) => {
-      console.log(resp.data);
-      resp = resp.data.data;
-      productData.id = resp.id;
-      productData.name = resp.name;
-      productData.description = resp.description;
-      productData.quantity = resp.quantity;
-      productData.price = resp.price;
-      productData.category = resp.category;
-      productData.image = resp.image;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  productData.value=await productStore.fetchProductById(productId.value)
+  const resp=await productStore.fetchCategory()
+  Categories.value=productStore.category
+  
 });
 
 async function updateProduct() {
   const formData = new FormData();
   formData.append("_method", "PUT");
-  formData.append("name", productData.name);
-  formData.append("description", productData.description);
-  formData.append("quantity", productData.quantity);
-  formData.append("price", productData.price);
-  formData.append("category", productData.category);
-  formData.append("image", productData.image);
+  formData.append("name", productData.name.value);
+  formData.append("description", productData.description.value);
+  formData.append("quantity", productData.quantity.value);
+  formData.append("price", productData.price.value);
+  formData.append("category", productData.category.value);
+  formData.append("image", productData.image.value);
   axiosClient
     .post(`api/product/${productData.id}`, formData)
     .then((resp) => {
@@ -155,17 +137,4 @@ async function updateProduct() {
     });
 }
 
-const Categories = ref([]);
-
-onMounted(() => {
-  axiosClient
-    .get("api/category")
-    .then((resp) => {
-      console.log(resp.data[0]);
-      Categories.value = resp.data.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
 </script>

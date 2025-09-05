@@ -96,6 +96,8 @@
 import axiosClient from "@/axios";
 import router from "@/router";
 import { onMounted, ref } from "vue";
+import { useProductStore } from "@/stores/product";
+const productStore =useProductStore()
 
 const productData = ref({
   name: "",
@@ -129,15 +131,8 @@ function submitProduct() {
 
 const Categories = ref([]);
 
-onMounted(() => {
-  axiosClient
-    .get("api/category")
-    .then((resp) => {
-      console.log(resp.data);
-      Categories.value = resp.data.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+onMounted(async () => {
+  const resp=await productStore.fetchCategory()
+  Categories.value=productStore.category
 });
 </script>

@@ -30,7 +30,7 @@
         <!-- Table Body -->
         <tbody class="divide-y divide-gray-200">
           <tr
-            v-for="category in Categories"
+            v-for="category in productStore.category"
             :key="category.id"
             class="hover:bg-gray-100 transition-colors"
           >
@@ -53,19 +53,11 @@
 </template>
 
 <script setup>
-import axiosClient from "@/axios";
+import { useProductStore } from "@/stores/product";
 import { onMounted, ref } from "vue";
-const Categories = ref([]);
+const productStore=useProductStore()
 
 onMounted(() => {
-  axiosClient
-    .get("api/category")
-    .then((resp) => {
-      console.log(resp.data);
-      Categories.value = resp.data.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  productStore.fetchCategory()
 });
 </script>
