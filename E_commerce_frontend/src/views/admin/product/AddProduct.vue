@@ -75,9 +75,6 @@
           </select>
         </div>
 
-        <label for="">user</label>
-        <input type="number" name="" id="" v-model="productData.user_id" />
-
         <!-- Submit Button -->
         <div class="pt-4">
           <button
@@ -116,7 +113,6 @@ function submitProduct() {
   formData.append("quantity", productData.value.quantity);
   formData.append("price", productData.value.price);
   formData.append("category", productData.value.category);
-  formData.append("user_id", productData.value.user_id);
   formData.append("image", productData.value.image);
   axiosClient
     .post("api/product", formData)

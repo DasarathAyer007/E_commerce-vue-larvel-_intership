@@ -120,14 +120,14 @@ onMounted(async () => {
 async function updateProduct() {
   const formData = new FormData();
   formData.append("_method", "PUT");
-  formData.append("name", productData.name.value);
-  formData.append("description", productData.description.value);
-  formData.append("quantity", productData.quantity.value);
-  formData.append("price", productData.price.value);
-  formData.append("category", productData.category.value);
-  formData.append("image", productData.image.value);
+  formData.append("name", productData.value.name);
+  formData.append("description", productData.value.description);
+  formData.append("quantity", productData.value.quantity);
+  formData.append("price", productData.value.price);
+  formData.append("category", productData.value.category);
+  formData.append("image", productData.value.image);
   axiosClient
-    .post(`api/product/${productData.id}`, formData)
+    .post(`api/product/${productData.value.id}`, formData)
     .then((resp) => {
       console.log(resp);
       //   router.push({ name: "productList" });

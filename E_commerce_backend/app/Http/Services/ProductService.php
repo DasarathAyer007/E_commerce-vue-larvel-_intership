@@ -13,9 +13,9 @@ class ProductService
         $this->productRepository = $productRepository;
     }
 
-    public function getAllProducts()
+    public function getAllProducts($filters)
     {
-        return $this->productRepository->getAll();
+        return $this->productRepository->getAll($filters);
     }
 
     public function getProductbyId($id)
@@ -69,4 +69,21 @@ class ProductService
     {
         return $this->productRepository->delete($id);
     }
+
+    public function getTotalStock()
+    {
+        return $this->productRepository->countStock();
+    }
+
+    public function getTotalProducts()
+    {
+        return $this->productRepository->countProducts(); 
+    }
+    public function getStockworth()
+    {
+        return $this->productRepository->stockPrice(); 
+    }
+
+
+
 }

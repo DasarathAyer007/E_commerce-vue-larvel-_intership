@@ -13,6 +13,7 @@ export const userStore = defineStore('storeId', {
     },
     getters: {
         isLogin: (state) => !!state.token,   
+        userRole:(state)=>state.user?.role || null
     },
     actions: {
         async fetchUser() {
@@ -21,7 +22,7 @@ export const userStore = defineStore('storeId', {
                 const userData = await axiosClient.get('api/user')
                 console.log("here")
                 console.log(userData.data)
-                this.user = userData.data
+                this.user = userData.data.data
                 // this.isLogin = true
             } catch (error) {
                 console.log(error)

@@ -38,6 +38,7 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
+        return $this->orderService->getOrderById($id)->toResource();
         
     }
 
@@ -46,7 +47,9 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+       
+        $order=$this->orderService->updateOrder($request ,$id);
+        return response()->json($order);
     }
 
     /**

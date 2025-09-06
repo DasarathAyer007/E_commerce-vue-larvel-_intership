@@ -18,9 +18,17 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return ProductResource::collection($this->productService->getAllProducts());
+        $filters = [
+        'category' => $request->query('category'),
+        'search'=>$request->query('search')
+        // 'sort'     => $request->query('sort') ?? 'name',
+        // 'order'    => $request->query('order') ?? 'asc',
+        ];
+        // return $this->productService->getAllProducts($filters);
+
+        return ProductResource::collection($this->productService->getAllProducts($filters));
     }
 
     /**

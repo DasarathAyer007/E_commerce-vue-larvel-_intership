@@ -60,7 +60,7 @@
           </li>
           <li>
             <router-link
-              to="/admin/user-orders"
+              to="/admin/orders"
               class="flex items-center gap-3 py-3 px-4 hover:bg-gray-700 rounded transition-colors"
               active-class="bg-orange-500 text-black"
             >

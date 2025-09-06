@@ -3,7 +3,7 @@
 namespace App\Http\Repositories;
 use App\Models\User;
 
-class AuthRepository
+class UserRepository
 {
 
     public function createUser($data){
@@ -16,4 +16,8 @@ class AuthRepository
     public function getUserbyEmail(){
 
     }
+    public function countUser(){
+        return User::count();
+    }
+    
 }

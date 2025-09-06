@@ -94,6 +94,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import router from "@/router";
 import { useProductStore } from "@/stores/product";
 import axiosClient from "@/axios";
 
@@ -122,8 +123,11 @@ function placeOrder() {
       { product_id: productId.value, quantity: productQuantity.value }
     ],
     shippingInfo: shippingInfo.value
+    
   })
-  .then(resp => console.log(resp))
+  .then((resp) => {
+    router.push({ name: 'yourOrder' })
+    console.log(resp)})
   .catch(err => console.error(err));
 }
 </script>

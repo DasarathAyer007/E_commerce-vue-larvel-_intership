@@ -25,10 +25,10 @@ export const useProductStore=defineStore('product',{
         }
     },
     actions:{
-        async fetchProduct(url='api/product'){
+        async fetchProduct(url='api/product',filters={}){
             this.loading=true
             try{
-                const resp=await axiosClient.get(url);
+                const resp=await axiosClient.get(url,{ params: filters });
                 this.products=resp.data.data
                 // this.meta=resp.data.meta
                 this.links=resp.data.links

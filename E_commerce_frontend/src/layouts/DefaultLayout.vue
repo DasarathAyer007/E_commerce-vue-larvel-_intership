@@ -16,7 +16,6 @@ if (user.isLogin) {
     <NavBar :isLogin="user.isLogin" />
     <!-- <NavBar :isLogin="true"/> -->
   </header>
-      Default layout
 
 
   <RouterView>

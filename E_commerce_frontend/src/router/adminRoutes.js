@@ -12,12 +12,16 @@ import Editcategory from '@/views/admin/category/Editcategory.vue'
 import CategoryDetail from '@/views/admin/category/CategoryDetail.vue'
 import ProductDetail from '@/views/admin/product/ProductDetail.vue'
 import EditProduct from '@/views/admin/product/EditProduct.vue'
+import Orders from '@/views/admin/order/Orders.vue'
+import OrderList from '@/views/admin/order/OrderList.vue'
+import OrderDetail from '@/views/admin/order/OrderDetail.vue'
 
 const adminRoutes =[
     {
       path: '/admin',
       name: 'admin',
       component: AdminLayout,
+      meta:{requiresAuth:true, roles:["admin"]},
       children: [
         {
           path: '',
@@ -26,7 +30,7 @@ const adminRoutes =[
         },
         {
           path: 'product',
-          name: 'product',
+          name: 'products',
           component: Product,
           children: [
             {path: '', name: "productList", component: ProductList },
@@ -39,13 +43,22 @@ const adminRoutes =[
         },
         {
           path:'category',
-          name:'category',
+          name:'categories',
           component:Category,
           children:[
-            {path:'',  name:'listCategory', component:CategoryList },
+            {path:'',  name:'categoryList', component:CategoryList },
             {path:':id',name:'categoryDetail',component:CategoryDetail},
             {path:'add', name:'addcategory', component:Addcategory},
             {path:'edit/:id',name:'editcategory',component:Editcategory}
+          ]
+        },{
+          path:'orders',
+          name:'orders',
+          component:Orders,
+          children:[
+            {path:'',name:'orderList',component:OrderList},
+            {path:':id',name:'orderDetail',component:OrderDetail}
+
           ]
         }
       ]

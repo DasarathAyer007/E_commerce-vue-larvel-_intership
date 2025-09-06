@@ -1,27 +1,27 @@
 <?php
 namespace App\Http\Services;
 
-use App\Http\Repositories\AuthRepository; 
+use App\Http\Repositories\UserRepository; 
 use Illuminate\Support\Facades\Hash;
 
 
-class AuthService
+class UserService
 {
 
-    protected $authRepository;
-    function __construct(AuthRepository $authRepository){
-        $this->authRepository=$authRepository;
+    protected $userRepository;
+    function __construct(UserRepository $userRepository){
+        $this->userRepository=$userRepository;
 
     }
     public function registerUser($data){
         
-        return $this->authRepository->createUser($data);
+        return $this->userRepository->createUser($data);
         
     }
     public function loginUser($data){
 
    
-        $user=$this->authRepository->getUserByName($data['name']);
+        $user=$this->userRepository->getUserByName($data['name']);
 
         if(!$user || !Hash::check($data['password'],$user->password)){
             return response()->json(
@@ -40,6 +40,10 @@ class AuthService
 
     public function logoutUser(){
 
+    }
+
+    public function getTotalUser(){
+        return $this->userRepository->countUser();
     }
 
 }

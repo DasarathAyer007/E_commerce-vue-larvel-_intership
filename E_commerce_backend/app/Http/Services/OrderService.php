@@ -18,7 +18,6 @@ class OrderService
         if($user->role_id==2){
             return $this->orderRepository->getAllOrders();
         }
-
         return $this->orderRepository->getUserOrders($user->id);
 
     }
@@ -59,14 +58,35 @@ class OrderService
 
 
     }
-    public function getOrderById(){
-
+    public function getOrderById($id){
+        return $this->orderRepository->getOrderById($id);
     }
-    public function updateOrder(){
+    public function updateOrder($request,$id){
+
+        // return $request->status;
+        $order=null;
+         if(!empty($request->status)){
+            $order= $this->orderRepository->updateStatus($id,$request->status);
+        }
+        return $order;
 
     }
     public function deleteOrder(){
 
+    }
+    public function getTotalOrders()
+    {
+        return $this->orderRepository->countOrder();
+    }
+
+    public function getTotalOrderItem()
+    {
+        return $this->orderRepository->countOrderItem();
+    }
+
+     public function getTotalSoldAmount()
+    {
+        return $this->orderRepository->sumTotalAmount();
     }
 
 

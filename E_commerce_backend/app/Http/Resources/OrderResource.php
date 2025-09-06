@@ -26,6 +26,13 @@ class OrderResource extends JsonResource
                     ->timezone('Asia/Kathmandu')
                     ->format('d M Y, h:i A'),
 
+
+              'user'=> $this->whenLoaded('user', function () {
+                return [
+                    'name'  => $this->user->name,
+                    'email' => $this->user->email,
+                ];
+            }),
             'order_items'   => OrderItemResource::collection($this->whenLoaded('orderItems')),
 
             'shipping_address' => $this->whenLoaded('shippingAddress', function () {

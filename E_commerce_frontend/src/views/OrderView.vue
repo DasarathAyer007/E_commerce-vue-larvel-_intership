@@ -25,11 +25,13 @@
           <span class="block text-lg font-bold text-orange-500"
             >${{ order.total_price }}</span
           >
-          <span
+    <span
             class="px-3 py-1 text-sm rounded-full font-medium"
             :class="{
               'bg-yellow-100 text-yellow-700': order.status === 'pending',
-              'bg-green-100 text-green-700': order.status === 'completed',
+              'bg-blue-100 text-blue-700': order.status === 'processing',
+              'bg-indigo-100 text-indigo-700': order.status === 'shipped',
+              'bg-green-100 text-green-700': order.status === 'delivered',
               'bg-red-100 text-red-700': order.status === 'cancelled',
             }"
           >

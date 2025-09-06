@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 
 
 class Order extends Model
@@ -16,8 +18,14 @@ class Order extends Model
     public function orderItems(){
         return $this->hasMany('App\Models\OrderItem');
     }
+    
 
     public function shippingAddress(){
         return $this->hasOne('App\Models\ShippingAddress');
     }
+
+     public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+    
 }
