@@ -48,6 +48,13 @@ class OrderRepository implements OrderRepositoryInterface
         $product->save();
         return $product;
     }
+    public function updatePaymentStatus($id , $status){
+        $product=Order::find($id);
+        $product->payment_status=$status;
+        $product->save();
+        return $product;
+    }
+
 
     public function update($id, array $data){
 

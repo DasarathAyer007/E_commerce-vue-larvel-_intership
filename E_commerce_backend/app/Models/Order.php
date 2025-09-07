@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use App\Models\Payment;
 
 
 class Order extends Model
@@ -26,6 +26,10 @@ class Order extends Model
 
      public function user(){
         return $this->belongsTo('App\Models\User');
+    }
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
     }
     
 }

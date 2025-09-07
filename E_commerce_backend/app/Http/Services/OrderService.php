@@ -3,6 +3,8 @@ namespace App\Http\Services;
 
 use App\Http\Repositories\OrderRepository; 
 use App\Models\Product;
+use Illuminate\Support\Facades\Gate;
+
 
 
 class OrderService
@@ -15,10 +17,13 @@ class OrderService
     }
     public function getOrder($user){
         //check for admin change this later
-        if($user->role_id==2){
+        if(Gate::allows('isAdmin')){
             return $this->orderRepository->getAllOrders();
+        }else{
+            return $this->orderRepository->getUserOrders($user->id);
+
         }
-        return $this->orderRepository->getUserOrders($user->id);
+
 
     }
     public function createOrder($request,$user){

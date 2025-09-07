@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PaymentContoller;
 
 
 Route::get('/user', function (Request $request) {
@@ -24,6 +25,9 @@ Route::get('/user', function (Request $request) {
 
 // Route::get('/logout',[AuthController::class ,'logout'])->middleware('auth:sanctum');
 
+Route::post('/payment/initiate',[PaymentContoller::class,'paymentIntent'])->middleware('auth:sanctum');
+// Route::post('/payment/verify',[PaymentContoller::class,'paymentVerify']);
+Route::post('/stripe/webhook',[PaymentContoller::class,'webHook']);
 
 // Auth
 Route::post('/signup', [AuthController::class, 'signup']);
