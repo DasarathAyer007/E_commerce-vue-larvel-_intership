@@ -10,6 +10,7 @@ import CheckoutView from '@/views/CheckoutView.vue'
 import OrderView from '@/views/OrderView.vue'
 import ProductFilter from '@/views/ProductFilter.vue'
 import { userStore } from '@/stores/user'
+import PaymentView from '@/views/PaymentView.vue'
 
 const routes =[
     {
@@ -42,7 +43,9 @@ const routes =[
           name:'yourOrder',
           component:OrderView,
           meta:{requiredAuth:true}
-        }
+        },
+          { path: "/payment/:id", component: PaymentView, props: true }
+          // { path: "/thank-you/:id", component: ThankYou, props: true },
 
       ]
     },

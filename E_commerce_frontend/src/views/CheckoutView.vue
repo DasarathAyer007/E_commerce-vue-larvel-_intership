@@ -126,7 +126,8 @@ function placeOrder() {
     
   })
   .then((resp) => {
-    router.push({ name: 'yourOrder' })
+    const order_id=resp.data.id
+    router.push(`/payment/${order_id}` )
     console.log(resp)})
   .catch(err => console.error(err));
 }

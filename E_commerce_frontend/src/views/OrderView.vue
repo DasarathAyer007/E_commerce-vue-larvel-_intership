@@ -23,7 +23,7 @@
         </div>
         <div class="text-right space-y-1 mt-2 sm:mt-0">
           <span class="block text-lg font-bold text-orange-500"
-            >${{ order.total_price }}</span
+            >{{ order.payment_status }}     ${{ order.total_price }}</span
           >
     <span
             class="px-3 py-1 text-sm rounded-full font-medium"

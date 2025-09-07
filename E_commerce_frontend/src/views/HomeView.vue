@@ -27,6 +27,6 @@ import CategoryGrid from "@/components/CategoryGrid.vue";
 import { userStore } from "@/stores/user";
 import { computed } from "vue";
 const user= userStore();
-const isAdmin=computed(()=>user.userRole)
+const isAdmin=computed(()=>user.userRole=='admin')
 
 </script>
