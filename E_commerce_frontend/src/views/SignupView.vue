@@ -18,8 +18,6 @@
             <p class="text-red-500" >{{ errorMessage.name[0] }}</p>
         </div>
 
-      
-
         <div>
           <label for="email" class="block text-gray-100 mb-1">Email</label>
           <input
@@ -101,7 +99,7 @@ function signUp(){
     axiosClient.post('api/signup',formdata.value)
         .then((resp)=>{
             console.log(resp)
-            router.push({ name: "categoryList" });
+            router.push({ name: "login" });
         })
         .catch((error)=>{
           errorMessage.name=error.response.data.errors.name ? error.response.data.errors.name :[]

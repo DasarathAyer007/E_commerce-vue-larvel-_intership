@@ -17,7 +17,6 @@ class PaymentContoller extends Controller
     }
     public function paymentIntent(Request $request): mixed
     {
-
         return $this->paymentService->createPaymentIntent($request->order_id);
 
     }
@@ -28,7 +27,6 @@ class PaymentContoller extends Controller
     }
     public function webHook(Request $request): JsonResponse
     {
-
         return $this->paymentService->webHook($request);
     }
 }

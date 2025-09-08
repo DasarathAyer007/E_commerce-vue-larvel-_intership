@@ -1,14 +1,8 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import NavBar from "./components/NavBar.vue";
-// import { userStore } from "./stores/user";
+import { RouterView } from "vue-router";
 
-// const user = userStore();
-
-// if (user.isLogin) {
-//   user.fetchUser();
-// }
-// </script>
+ 
+</script>
 
 <template>
 

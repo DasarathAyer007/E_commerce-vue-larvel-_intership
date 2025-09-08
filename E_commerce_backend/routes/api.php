@@ -14,17 +14,7 @@ Route::get('/user', function (Request $request) {
      return $request->user()->toResource();
 })->middleware('auth:sanctum');
 
-
-// Route::apiResource('/product',ProductController::class);
-// Route::apiResource('/category',CategoryController::class);
-// Route::apiResource('/order',OrderController::class)->middleware('auth:sanctum');
-
-// Route::post('/signup',[AuthController::class,'signup']);
-
-// Route::post('/login',[AuthController::class,'login']);
-
-// Route::get('/logout',[AuthController::class ,'logout'])->middleware('auth:sanctum');
-
+//for payment
 Route::post('/payment/initiate',[PaymentContoller::class,'paymentIntent'])->middleware('auth:sanctum');
 // Route::post('/payment/verify',[PaymentContoller::class,'paymentVerify']);
 Route::post('/stripe/webhook',[PaymentContoller::class,'webHook']);
@@ -34,11 +24,11 @@ Route::post('/signup', [AuthController::class, 'signup']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class ,'logout'])->middleware('auth:sanctum');
 
-//  Public viewing (no auth required)
+//  user 
 Route::apiResource('/product', ProductController::class)->only(['index', 'show']);
 Route::apiResource('/category', CategoryController::class)->only(['index', 'show']);
 
-// Admin can manage product/category
+// Admin
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::apiResource('/product', ProductController::class)->except(['index', 'show']);
     Route::apiResource('/category', CategoryController::class)->except(['index', 'show']);
@@ -47,7 +37,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
 //  Orders
 Route::middleware('auth:sanctum')->group(function () {
-    // Users can place/view their own orders
+    // Users can place/view their own orders but admin can view all
     Route::apiResource('/order', OrderController::class)->only(['index', 'store', 'show']);
 });
 

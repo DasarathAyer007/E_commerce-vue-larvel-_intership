@@ -1,5 +1,3 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import NotFound from '@/views/NotFound.vue'
 import Dashboard from '@/views/admin/Dashboard.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
 import Product from '@/views/admin/product/Product.vue'

@@ -67,7 +67,7 @@ const handlePayment = async () => {
 
   try {
     const result = await stripe.value.confirmPayment({
-      elements: elements.value, // stay on page
+      elements: elements.value, 
       redirect: 'if_required',              
     });
 

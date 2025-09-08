@@ -99,7 +99,7 @@ class PaymentService
                     $this->paymentRepository->create([
                         'order_id' => $orderId,
                         'user_id' => $paymentIntent->metadata->user_id,
-                        'stripe_payment_id' => $paymentIntent->id,
+                        'stripe_payment_id' => $paymentIntent->id /100,
                         'amount' => $paymentIntent->amount_received,
                         'currency' => $paymentIntent->currency,
                         'status' => $paymentIntent->status,

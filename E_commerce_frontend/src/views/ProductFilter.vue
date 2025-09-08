@@ -19,7 +19,6 @@ const route = useRoute();
 const categoryId =ref(0)
 const search=ref(null)
 
-
 onMounted(() => {
   productStore.fetchProduct('/api/product', {
     category: route.query.category || null,

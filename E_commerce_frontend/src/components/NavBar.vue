@@ -161,7 +161,6 @@
 </template>
 
 <script setup>
-import axiosClient from "@/axios";
 import router from "@/router";
 import { userStore } from "@/stores/user";
 import SearchBar from "./SearchBar.vue";

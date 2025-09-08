@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 
 
-
 class OrderService
 {
     protected $orderRepository;
@@ -19,14 +18,13 @@ class OrderService
     }
     public function getOrder($user)
     {
-        //check for admin change this later
+
         if (Gate::allows('isAdmin')) {
             return $this->orderRepository->getAllOrders();
         } else {
             return $this->orderRepository->getUserOrders($user->id);
 
         }
-
 
     }
     public function createOrder(array $data, $user): Order
@@ -36,18 +34,6 @@ class OrderService
         $shippingInfo = $data['shippingInfo'];
         $totalPrice = 0;
 
-        // foreach($request->orderItems as $iteam){
-        //      $product = Product::findOrFail($iteam['product_id']);
-        //      if($product->quantity<$iteam['quantity']){
-        //           abort(400, 'Insufficient stock for ' . $product->name);
-        //      }
-        //     $orderItems[]=[
-        //         'product_id'=>$product->id,
-        //         'quantity'=>$iteam['quantity'],
-        //         'price'=>$product->price
-        //     ];
-        //     $totalPrice+=($product->price)*$iteam['quantity'];
-        // }
         foreach ($orderItems as &$item) {
             $product = Product::findOrFail($item['product_id']);
 
@@ -58,15 +44,6 @@ class OrderService
             $item['price'] = $product->price;
             $totalPrice += $product->price * $item['quantity'];
         }
-
-        // $shippingInfo=[
-        //     'phone'=>$request->shippingInfo['phone'],
-        //     'address'=>$request->shippingInfo['address'],
-        //     'city'=>$request->shippingInfo['city'],
-        //     'postal_code'=>$request->shippingInfo['postal_code']
-
-        // ];
-
 
         $orderData = [
             "total_price" => $totalPrice,

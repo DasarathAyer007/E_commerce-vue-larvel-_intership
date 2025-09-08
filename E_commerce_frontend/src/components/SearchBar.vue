@@ -1,6 +1,6 @@
 <template>
     <div class="flex w-full max-w-md items-center bg-white rounded-md shadow border border-gray-300 overflow-hidden">
-      <!-- Input -->
+
       <input
         v-model="search"
         type="text"
@@ -9,7 +9,7 @@
         @keyup.enter="searchProduct"
       />
 
-      <!-- Search Button -->
+  
       <button
         @click="searchProduct"
         class="px-4 py-2 bg-orange-500 text-white hover:bg-orange-600 transition flex items-center justify-center"

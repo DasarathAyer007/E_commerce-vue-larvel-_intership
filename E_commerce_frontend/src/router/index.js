@@ -88,7 +88,6 @@ router.beforeEach((to,from,next)=>{
 
   const user=userStore()
   
-
   if(to.meta.requiredAuth && !user.isLogin){
     return next('/login');
   }

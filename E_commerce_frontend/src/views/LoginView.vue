@@ -55,7 +55,6 @@
 </template>
 
 <script setup>
-import axiosClient from "@/axios";
 import GuestLayout from "@/layouts/GuestLayout.vue";
 import { ref, reactive, toRaw } from "vue";
 import { userStore } from "../stores/user";

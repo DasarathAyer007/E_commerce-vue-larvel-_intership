@@ -48,7 +48,6 @@
       </button>
 
       <!-- Order Items -->
-      <!-- Order Items -->
       <div v-if="openOrders.includes(order.id)" class="border-t pt-4 space-y-4">
         <div
           v-for="item in order.order_items"

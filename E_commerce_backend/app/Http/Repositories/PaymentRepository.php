@@ -3,9 +3,10 @@
 namespace App\Http\Repositories;
 use App\Models\Payment;
 use Illuminate\Database\Eloquent\Collection;
+use App\Http\Repositories\Interfaces\PaymentRepositoryInterface;
 
 
-class PaymentRepository
+class PaymentRepository implements PaymentRepositoryInterface
 {
     public function getAll(): Collection
     {
