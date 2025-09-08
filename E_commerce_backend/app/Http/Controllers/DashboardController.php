@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Services\OrderService;
 use App\Http\Services\UserService;
 use App\Http\Services\ProductService;
+use Illuminate\Http\JsonResponse;
+
 
 
 class DashboardController extends Controller
@@ -24,7 +25,8 @@ class DashboardController extends Controller
         $this->productService = $productService;
     }
 
-    public function index(){
+    public function index(): JsonResponse
+    {
         return response()->json([
             'totalOrders' => $this->orderService->getTotalOrders(),
             'totalSoldamount' => $this->orderService->getTotalSoldAmount(),
@@ -34,7 +36,7 @@ class DashboardController extends Controller
 
             'totalProducts' => $this->productService->getTotalProducts(),
             'productsInStock' => $this->productService->getTotalStock(),
-            'stockworth'=>$this->productService->getStockworth()
+            'stockworth' => $this->productService->getStockworth()
         ]);
     }
 }

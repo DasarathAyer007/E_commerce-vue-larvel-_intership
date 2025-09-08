@@ -2,22 +2,24 @@
 
 namespace App\Http\Repositories;
 use App\Http\Repositories\Interfaces\ProductRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
+
 class ProductRepository implements ProductRepositoryInterface
 {
-    public function getAll(array $filters)
+    public function getAll(array $filters): LengthAwarePaginator
     {
-   
+
         $query = Product::query();
 
-        if(!empty($filters['category'])){
-            $query->where('category_id',$filters['category']);
+        if (!empty($filters['category'])) {
+            $query->where('category_id', $filters['category']);
         }
 
-        if(!empty($filters['search'])){
-            $search=$filters['search'];
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
             $query->where('name', 'like', "%{$search}%");
         }
 
@@ -27,42 +29,53 @@ class ProductRepository implements ProductRepositoryInterface
         return $query->paginate(18);
     }
 
-    public function getById($id)
+    public function getById(int $id): ?Product
     {
         return Product::findOrFail($id);
     }
 
-    public function create(array $data)
+    public function create(array $data): Product
     {
         return Product::create($data);
     }
 
-    public function update($id, array $data)
+    public function update(int $id, array $data): Product
     {
         $product = Product::findOrFail($id);
         $product->update($data);
         return $product;
     }
 
-    public function delete($id)
+    public function delete(int $id): bool
     {
         $product = Product::findOrFail($id);
 
-        if ($product->image_path && Storage::disk('public')->exists($product->image_path)) {
-            Storage::disk('public')->delete($product->image_path);
+        if ($product->image_path) {
+
+            $publicId = pathinfo($product->image_path, PATHINFO_FILENAME);
+
+            try {
+                cloudinary()->uploadApi()->destroy($publicId);
+            } catch (\Exception $e) {
+
+                \Log::error("Failed to delete Cloudinary image: " . $e->getMessage());
+            }
         }
-        
-        return Product::destroy($id);
+
+        return Product::destroy($id) > 0;
     }
 
-    public function countProducts(){
+    public function countProducts(): int
+    {
         return Product::count();
 
     }
-    public function countStock(){
+    public function countStock(): int
+    {
         return Product::sum('quantity');
     }
-    public function stockPrice(){
-        return Product::sum(DB::raw('quantity * price'));   
-     }
+    public function stockPrice(): float
+    {
+        return Product::sum(DB::raw('quantity * price'));
+    }
 }

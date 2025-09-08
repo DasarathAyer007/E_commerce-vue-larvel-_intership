@@ -112,7 +112,7 @@ function submitProduct() {
   formData.append("description", productData.value.description);
   formData.append("quantity", productData.value.quantity);
   formData.append("price", productData.value.price);
-  formData.append("category", productData.value.category);
+  formData.append("category_id", productData.value.category);
   formData.append("image", productData.value.image);
   axiosClient
     .post("api/product", formData)

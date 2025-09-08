@@ -3,49 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Stripe\Stripe;
-use Stripe\PaymentIntent;
-use Stripe\Webhook;
-use App\Models\Order;
 use App\Http\Services\PaymentService;
+use Illuminate\Http\JsonResponse;
+
 
 
 class PaymentContoller extends Controller
 {
     protected $paymentService;
-    function __construct(PaymentService $paymentService)
+    public function __construct(PaymentService $paymentService)
     {
-         $this->paymentService = $paymentService;
+        $this->paymentService = $paymentService;
     }
-    public function paymentIntent(Request $request){
+    public function paymentIntent(Request $request): mixed
+    {
 
-         return $this->paymentService->createPaymentIntent($request);
+        return $this->paymentService->createPaymentIntent($request->order_id);
 
-        // $id=$request->order_id;
-        // $order=Order::find($id);
-
-        // Stripe::setApiKey(env('STRIPE_SECRET'));
-        // $paymentIntent = PaymentIntent::create([
-        //     'amount' => $order->total_price, 
-        //     'currency' => 'usd',
-        //     'metadata' => [
-        //         'order_id' => $order->id,
-        //     ],
-        
-        // ]);
-
-        // return response()->json([
-        //     'clientSecret' => $paymentIntent->client_secret,
-        //     'order' => $order
-        // ]);
-                
     }
-    public function paymentVerify(Request $request){
+    public function paymentVerify(Request $request): JsonResponse
+    {
 
-           return $this->paymentService->paymentVerify($request);
+        return $this->paymentService->paymentVerify($request);
     }
-    public function webHook(Request $request){
+    public function webHook(Request $request): JsonResponse
+    {
 
-            return $this->paymentService->webHook($request);
+        return $this->paymentService->webHook($request);
     }
 }

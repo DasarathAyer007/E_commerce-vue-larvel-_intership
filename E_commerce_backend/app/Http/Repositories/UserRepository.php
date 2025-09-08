@@ -6,18 +6,22 @@ use App\Models\User;
 class UserRepository
 {
 
-    public function createUser($data){
+    public function createUser($data): User
+    {
         return User::create($data);
 
     }
-    public function getUserByName($name){
-       return $user=User::where('name',$name)->first();
+    public function getUserByName($name): User|null
+    {
+        return $user = User::where('name', $name)->first();
     }
-    public function getUserbyEmail(){
+    public function getUserbyEmail()
+    {
 
     }
-    public function countUser(){
+    public function countUser(): int
+    {
         return User::count();
     }
-    
+
 }

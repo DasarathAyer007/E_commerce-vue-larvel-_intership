@@ -67,7 +67,7 @@
             v-model="productData.category"
             class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500"
           >
-            <option disabled value="">-- Select a category --</option>
+            <option :value="productData.category_id" selected >{{selectedCategory}}</option>
             <option
               v-for="category in Categories"
               :key="category.id"
@@ -78,8 +78,6 @@
           </select>
         </div>
 
-        <label for="">user</label>
-        <input type="number" name="" id="" v-model="productData.user_id" />
 
         <!-- Submit Button -->
         <div class="pt-4">
@@ -87,7 +85,7 @@
             type="submit"
             class="w-full bg-orange-500 text-white py-2 px-4 rounded-md shadow hover:bg-orange-600 transition"
           >
-            Add Product
+            Update Product
           </button>
         </div>
       </form>
@@ -108,10 +106,12 @@ const productStore=useProductStore()
 
 const productData = ref([]);
 const Categories = ref([]);
+const selectedCategory=ref([])
 
 onMounted(async () => {
   productId.value = route.params.id;
   productData.value=await productStore.fetchProductById(productId.value)
+  selectedCategory.value=productData.value.category
   const resp=await productStore.fetchCategory()
   Categories.value=productStore.category
   
@@ -124,13 +124,15 @@ async function updateProduct() {
   formData.append("description", productData.value.description);
   formData.append("quantity", productData.value.quantity);
   formData.append("price", productData.value.price);
-  formData.append("category", productData.value.category);
-  formData.append("image", productData.value.image);
+  formData.append("category_id", productData.value.category);
+  if (productData.value.image && productData.value.image instanceof File) {
+    formData.append("image", productData.value.image);
+  }
   axiosClient
     .post(`api/product/${productData.value.id}`, formData)
     .then((resp) => {
       console.log(resp);
-      //   router.push({ name: "productList" });
+         router.push({ name: "login" });
     })
     .catch((error) => {
       console.log(error);

@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
 use App\Http\Services\CategoryService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+
 
 class CategoryController extends Controller
 {
-
+    protected $categoryService;
     public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
@@ -17,7 +19,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         return CategoryResource::collection($this->categoryService->getAllCategory());
     }
@@ -25,10 +27,10 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): CategoryResource
     {
-       
-        $category=$this->categoryService->createCategory($request);
+        $data = $request->only(['name', 'description']);
+        $category = $this->categoryService->createCategory($data);
 
         return $category->toResource();
     }
@@ -36,32 +38,33 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(int $id): CategoryResource
     {
-        $category=$this->categoryService->getCategoryById($id);
+        $category = $this->categoryService->getCategoryById($id);
         return $category->toResource();
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): JsonResponse
     {
-        $category=$this->categoryService->updateCategory($id,$request);
+        $data = $request->only(['name', 'description']);
+        $category = $this->categoryService->updateCategory($id, $data);
 
         return response()->json([
-            'message'=>'update sucessfully'
-    ]);
+            'message' => 'update sucessfully'
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $id)
+    public function destroy(int $id): JsonResponse
     {
-        $category=$this->categoryService->deleteCategory($id);
+        $category = $this->categoryService->deleteCategory($id);
         return response()->json([
-            "message"=>"Deleted Sucessfully"
+            "message" => "Deleted Sucessfully"
         ]);
     }
 }

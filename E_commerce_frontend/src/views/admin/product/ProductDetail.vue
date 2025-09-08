@@ -35,7 +35,7 @@
           >
             Edit Product
           </RouterLink>
-          <button
+          <button @click="deleteProduct()"
             class="px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-600 transition"
           >
             Delete Product
@@ -49,6 +49,7 @@
 <script setup>
 import axiosClient from "@/axios";
 import { useProductStore } from "@/stores/product";
+import router from "@/router";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
 const productStore= useProductStore()
@@ -60,4 +61,17 @@ onMounted(async () => {
   productId.value = route.params.id;
   productData.value=await productStore.fetchProductById(productId.value);
 });
+
+function deleteProduct(){
+  if (!window.confirm("Are you sure you want to delete this product?")) {
+    return; 
+  }
+  axiosClient.delete(`api/product/${productId.value}`).then((resp)=>{
+    console.log(resp)
+     router.push({ name: "productList" });
+  }).catch((error)=>{
+    console.log(error)
+  })
+
+}
 </script>

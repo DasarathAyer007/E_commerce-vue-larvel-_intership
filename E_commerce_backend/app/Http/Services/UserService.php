@@ -13,13 +13,13 @@ class UserService
         $this->userRepository=$userRepository;
 
     }
-    public function registerUser($data){
+    public function registerUser(array $data)
+    {
         
         return $this->userRepository->createUser($data);
         
     }
-    public function loginUser($data){
-
+    public function loginUser(array $data){
    
         $user=$this->userRepository->getUserByName($data['name']);
 
@@ -27,14 +27,11 @@ class UserService
             return response()->json(
                 ["message"=>"user not found"],404
         );
-
         }
-
         return response()->json([
             "user"=>$user,
             "token"=>$user->createToken($user->name)->plainTextToken
         ]);
-
     }
    
 

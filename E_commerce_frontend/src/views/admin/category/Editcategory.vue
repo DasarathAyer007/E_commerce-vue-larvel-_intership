@@ -41,6 +41,7 @@
 import axiosClient from "@/axios";
 import { onMounted, reactive, ref, toRaw } from "vue";
 import { useRoute } from "vue-router";
+import router from "@/router";
 const route = useRoute();
 const categoryId = ref(null);
 
@@ -72,6 +73,8 @@ async function updateCategory() {
     .put(`api/category/${categoryData.id}`, toRaw(categoryData))
     .then((resp) => {
       console.log(resp);
+      router.push({ name: "categoryList" });
+
     })
     .catch((error) => {
       console.log(error);

@@ -79,6 +79,8 @@
 import GuestLayout from "@/layouts/GuestLayout.vue";
 import axiosClient from '@/axios';
 import { reactive, ref } from 'vue';
+import router from "@/router";
+
 
 const formdata = ref({
   name: '',
@@ -99,6 +101,7 @@ function signUp(){
     axiosClient.post('api/signup',formdata.value)
         .then((resp)=>{
             console.log(resp)
+            router.push({ name: "categoryList" });
         })
         .catch((error)=>{
           errorMessage.name=error.response.data.errors.name ? error.response.data.errors.name :[]

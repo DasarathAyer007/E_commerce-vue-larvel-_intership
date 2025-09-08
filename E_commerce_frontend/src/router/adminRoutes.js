@@ -64,11 +64,6 @@ const adminRoutes =[
       ]
     },
 
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'notFound',
-      component: NotFound
-    }
   ]
 
 export default adminRoutes
